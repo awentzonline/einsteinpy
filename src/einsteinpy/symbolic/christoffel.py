@@ -60,6 +60,7 @@ class ChristoffelSymbols(BaseRelativityTensor):
         dims = metric.dims
         tmplist = np.zeros((dims, dims, dims), dtype=int).tolist()
         mat, syms = metric.lower_config().tensor(), metric.symbols()
+        # mat = sympy.simplify(mat)
         matinv = sympy.Matrix(mat.tolist()).inv()
         for t in range(dims ** 3):
             # i,j,k each goes from 0 to (dims-1)
@@ -75,6 +76,7 @@ class ChristoffelSymbols(BaseRelativityTensor):
                         + sympy.diff(mat[n, k], syms[j])
                         - sympy.diff(mat[j, k], syms[n])
                     )
+                # tmpvar = sympy.simplify(tmpvar)
                 tmplist[i][j][k] = tmplist[i][k][j] = tmpvar
         return cls(tmplist, syms, config="ull", parent_metric=metric)
 

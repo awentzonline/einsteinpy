@@ -87,7 +87,8 @@ class RiemannCurvatureTensor(BaseRelativityTensor):
             temp = sympy.diff(arr[t, s, n], syms[r]) - sympy.diff(arr[t, s, r], syms[n])
             for p in range(dims):
                 temp += arr[p, s, n] * arr[t, p, r] - arr[p, s, r] * arr[t, p, n]
-            riemann_list[t][s][r][n] = sympy.simplify(temp)
+            # riemann_list[t][s][r][n] = sympy.simplify(temp)
+            riemann_list[t][s][r][n] = temp
         if parent_metric is None:
             parent_metric = chris.parent_metric
         return cls(riemann_list, syms, config="ulll", parent_metric=parent_metric)

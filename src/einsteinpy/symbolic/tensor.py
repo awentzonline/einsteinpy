@@ -53,9 +53,10 @@ def _change_config(tensor, metric, newconfig):
             if action == 0:
                 continue
             else:
-                t = simplify(
-                    tensorcontraction(tensorproduct(met_dict[action], t), (1, 2 + i))
-                )
+                # t = simplify(
+                #     tensorcontraction(tensorproduct(met_dict[action], t), (1, 2 + i))
+                # )
+                t = tensorcontraction(tensorproduct(met_dict[action], t), (1, 2 + i))
                 # reshuffle the indices
                 dest = list(range(len(t.shape)))
                 dest.remove(0)

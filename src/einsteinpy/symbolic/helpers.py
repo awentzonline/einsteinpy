@@ -46,6 +46,17 @@ def simplify_sympy_array(arr):
         return sympy.Array(sympy.simplify(sum(arr)))
 
 
+def collect_sympy_array(arr, syms):
+    try:
+        flattened_list = _flatten_list(arr.tolist())
+        simplified_flattened_list = [sympy.collect(e, syms) for e in flattened_list]
+        return sympy.Array(simplified_flattened_list, arr.shape)
+    except AttributeError:
+        return sympy.collect(arr, syms)
+    except IndexError:
+        return sympy.Array(sympy.collect(sum(arr), syms))
+
+
 def sympy_to_np_array(arr):
     """
     Function to convert sympy to numpy array

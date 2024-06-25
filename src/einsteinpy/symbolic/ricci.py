@@ -68,7 +68,8 @@ class RicciTensor(BaseRelativityTensor):
         if parent_metric is None:
             parent_metric = riemann.parent_metric
         return cls(
-            simplify_sympy_array(sympy.tensorcontraction(riemann.tensor(), (0, 2))),
+            # simplify_sympy_array(sympy.tensorcontraction(riemann.tensor(), (0, 2))),
+            sympy.tensorcontraction(riemann.tensor(), (0, 2)),
             riemann.syms,
             config="ll",
             parent_metric=parent_metric,
@@ -236,7 +237,8 @@ class RicciScalar(BaseRelativityTensor):
             parent_metric = riccitensor.parent_metric
         ricci_scalar = tensorcontraction(riccitensor.tensor(), (0, 1))
         return cls(
-            simplify_sympy_array(ricci_scalar),
+            # simplify_sympy_array(ricci_scalar),
+            ricci_scalar,
             riccitensor.syms,
             parent_metric=parent_metric,
         )
